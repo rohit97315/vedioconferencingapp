@@ -18,32 +18,54 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid'; 
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';// import { Paper, Box, Typography, CssBaseline } from '@mui/material';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function Authentication() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const data = new FormData(event.currentTarget);
+//     console.log({
+//       email: data.get('email'),
+//       password: data.get('password'),
+//     });
+//   };
+
+const[username, setUsername] = React.useState();
+
+const[password, setPassword] = React.useState();
+
+const[name, setName] = React.useState();
+
+const[error, setError] = React.useState();
+
+const[messages, setMessages] = React.useState();
+
+
+const[formState, setFormState] = React.useState(0);
+
+const[open, setOpen] = React.useState(false);
+
+
+
+
+
+
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -110,19 +132,45 @@ export default function Authentication() {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+ 
+            <div>
+                <Button variant={formState === 0 ? "contained" : "" } onClick={() => {setFormState(0)}}>
+                    Sign In
+                </Button>
+                <Button variant={formState === 1 ? "contained" : "" } onClick={() => {setFormState(1)}}>
+                    Sign Up
+                </Button>
+            </div>
+            
+
+
+            {/* <Typography component="h1" variant="h5">
               Sign in
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            </Typography> */}
+            <Box component="form" noValidate  sx={{ mt: 1 }}>
+
+
+              {formState === 1? <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Full Name"
+                name="username"
+                autoFocus
+                onChange={(e) => setName(e.target.value)}
+              />: <></>}
+              
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
                 autoFocus
+                onChange={(e) => setusername(e.target.value)}
+
               />
               <TextField
                 margin="normal"
@@ -131,34 +179,24 @@ export default function Authentication() {
                 name="password"
                 label="Password"
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
+
                 id="password"
-                autoComplete="current-password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
               <Button
-                type="submit"
+                type="button"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              
+              
             </Box>
           </Box>
         </Grid>
