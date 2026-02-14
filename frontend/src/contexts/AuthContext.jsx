@@ -23,8 +23,8 @@ export const AuthProvider = ({Children}) => {
     cosnt [userData , setUserData] = useState(authContext );
 
 
-
     const router = useNavigate();
+    
 
 
     const handleRegister = async (name , username ,password) =>{
@@ -41,6 +41,23 @@ export const AuthProvider = ({Children}) => {
             throw(err);
         }
     }
+
+    const handleLogin = async(username, password) => {
+        try {
+            let request = await client.post("/login",{
+                username: username, 
+                password: password
+            });
+            if(request.status === httpStatus.OK){
+                localStorage.setItem("token",request.data.token);
+                router("/home")
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+
 
 
     const data = {

@@ -63,7 +63,18 @@ const[open, setOpen] = React.useState(false);
 
 
 
+let handleAuth = async() =>{
+    try {
+        if(formState === 0){
 
+        }
+        if(formState === 1){
+            
+        }
+    } catch (error) {
+        
+    }
+}
 
 
 
