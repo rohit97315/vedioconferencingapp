@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import Grid from '@mui/material/Grid'; 
+import { AuthContext } from '../contexts/AuthContext';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';// import { Paper, Box, Typography, CssBaseline } from '@mui/material';
 
 // function Copyright(props) {
@@ -60,6 +61,7 @@ const[formState, setFormState] = React.useState(0);
 
 const[open, setOpen] = React.useState(false);
 
+const {handleRegister, handleLogin} = React.useContext(AuthContext);
 
 
 
@@ -69,10 +71,14 @@ let handleAuth = async() =>{
 
         }
         if(formState === 1){
-            
+            let result = await handleRegister(name, username, password);
+            console.log(result);
+            setMessages(result);
+            setOpen(true);
         }
-    } catch (error) {
-        
+    } catch (err) {
+        let message = (err.response.data.message);
+        setError(message);
     }
 }
 
